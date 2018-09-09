@@ -625,6 +625,8 @@ class Arrow(object):
             attr = 'day'
         elif frame_absolute == 'quarter':
             attr = 'month'
+        if frame_absolute == 'halfhour':
+            attr = 'minute'
         else:
             attr = frame_absolute
 
@@ -638,10 +640,14 @@ class Arrow(object):
 
         floor = self.__class__(*values, tzinfo=self.tzinfo)
 
+
         if frame_absolute == 'week':
             floor = floor + relativedelta(days=-(self.isoweekday() - 1))
         elif frame_absolute == 'quarter':
             floor = floor + relativedelta(months=-((self.month - 1) % 3))
+        elif frame_absolute == 'halfhour':
+            floor = floor + relativedelta(minutes=-((self.minute) % 30))
+
 
         ceil = floor + relativedelta(
             **{frame_relative: count * relative_steps}) + relativedelta(microseconds=-1)
@@ -1038,12 +1044,14 @@ class Arrow(object):
         if name in cls._ATTRS:
             return name, '{0}s'.format(name), 1
 
+        elif name in ['halfhour', 'halfhours']:
+            return 'halfhour', 'minutes', 30
         elif name in ['week', 'weeks']:
             return 'week', 'weeks', 1
         elif name in ['quarter', 'quarters']:
             return 'quarter', 'months', 3
 
-        supported = ', '.join(cls._ATTRS + ['week', 'weeks'] + ['quarter', 'quarters'])
+        supported = ', '.join(cls._ATTRS + ['week', 'weeks'] + ['quarter', 'quarters'] ['halfhour', 'halfhours'])
         raise AttributeError('range/span over frame {0} not supported. Supported frames: {1}'.format(name, supported))
 
     @classmethod
