@@ -137,6 +137,7 @@ jobs:
           additional-packages:
             git
             python3
+            ca-certificates
 
       # Check out latest code
       - run: git clone https://github.com/arrow-py/arrow.git
