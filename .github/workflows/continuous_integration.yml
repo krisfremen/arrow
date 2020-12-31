@@ -2,10 +2,10 @@ name: tests
 
 on:
   push:
-#  pull_request: # Run on all pull requests
-#  push: # Run only on pushes to master
-#    branches:
-#      - master
+  #  pull_request: # Run on all pull requests
+  #  push: # Run only on pushes to master
+  #    branches:
+  #      - master
   schedule: # Run monthly
     - cron: "0 0 1 * *"
 
@@ -129,6 +129,7 @@ jobs:
     defaults:
       run:
         shell: wsl-bash {0}
+
     steps:
       # Setup WSL
       - uses: Vampire/setup-wsl@v1
