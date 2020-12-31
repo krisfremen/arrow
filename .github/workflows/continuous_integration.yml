@@ -121,3 +121,32 @@ jobs:
       # Lint docs
       - name: Lint docs
         run: tox -e docs
+
+  wsl_test:
+    name: WSL
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: wsl-bash {0}
+    steps:
+      # Setup WSL
+      - uses: Vampire/setup-wsl@v1
+
+      # Check out latest code
+      - uses: actions/checkout@v2
+
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: py38
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install -U pip setuptools wheel
+          pip install -U tox tox-gh-actions
+
+      # Run tests
+      - name: Test with tox
+        run: tox
