@@ -142,7 +142,11 @@ jobs:
       # Check out latest code
       - run: git clone https://github.com/arrow-py/arrow.git
 
-      - run: python3
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install -U pip setuptools wheel
+          pip install -U tox
       # Run tests
       - name: Test with tox
         run: tox
