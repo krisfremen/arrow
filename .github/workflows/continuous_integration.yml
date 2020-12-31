@@ -124,6 +124,13 @@ jobs:
 #        run: tox -e docs
 
   wsl_test:
+    strategy:
+      matrix:
+        python:
+          - 3.6.8
+          - 3.7.9
+          - 3.8.7
+          - 3.9.1
     name: WSL
     runs-on: windows-latest
     defaults:
@@ -142,12 +149,16 @@ jobs:
 
       # Check out latest code
       - run: git clone https://github.com/arrow-py/arrow.git
-
+      - name: Install python version
+        uses: gabrielfalcao/pyenv-action@v5
+        with:
+          default: "${{ matrix.python }}"
       # Install dependencies
       - name: Install dependencies
         run: |
           pip3 install -U pip setuptools wheel
           pip3 install -U tox
+
       # Run tests
       - name: Test with tox
         run: cd arrow && tox
