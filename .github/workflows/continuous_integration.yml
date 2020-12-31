@@ -150,7 +150,7 @@ jobs:
       # Check out latest code
       - run: git clone https://github.com/arrow-py/arrow.git
       - name: Install python version
-        uses: gabrielfalcao/pyenv-action@v5
+        uses: gabrielfalcao/pyenv-action@v7
         with:
           default: "${{ matrix.python }}"
       # Install dependencies
