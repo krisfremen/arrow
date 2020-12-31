@@ -150,4 +150,4 @@ jobs:
           pip3 install -U tox
       # Run tests
       - name: Test with tox
-        run: tox
+        run: cd arrow && tox
