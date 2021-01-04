@@ -168,7 +168,7 @@ jobs:
       # Install pyenv
       - run: |
         curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-        ~/.pyenv/bin/pyenv install ${{ matrix.python }}
+        ~/.pyenv/bin/pyenv install "${{ matrix.python }}"
       # Install dependencies
       - name: Install dependencies
         run: |
