@@ -146,13 +146,29 @@ jobs:
             python3
             python3-pip
             ca-certificates
+            build-essential
+            libexpat1-dev
+            libssl-dev
+            zlib1g-dev
+            libncurses5-dev
+            libbz2-dev
+            liblzma-dev
+            libsqlite3-dev
+            libffi-dev
+            tcl-dev
+            linux-headers-generic
+            libgdbm-dev
+            libreadline-dev
+            tk
+            tk-dev
+
 
       # Check out latest code
       - run: git clone https://github.com/arrow-py/arrow.git
-      - name: Install python version
-        uses: gabrielfalcao/pyenv-action@v7
-        with:
-          default: "${{ matrix.python }}"
+      # Install pyenv
+      - run: |
+        curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+        ~/.pyenv/bin/pyenv install ${{ matrix.python }}
       # Install dependencies
       - name: Install dependencies
         run: |
