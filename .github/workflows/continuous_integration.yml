@@ -166,8 +166,11 @@ jobs:
       # Check out latest code
       - run: git clone https://github.com/arrow-py/arrow.git
       # Install pyenv
-      - run: |
-        curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash && ~/.pyenv/bin/pyenv install "${{ matrix.python }}"
+      - run: git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+      - run: echo "~/.pyenv/bin" >> $GITHUB_PATH
+      - run: echo "PYENV_ROOT=~/.pyenv"" >> $GITHUB_ENV
+      - run: pyenv
+
       # Install dependencies
       - name: Install dependencies
         run: |
