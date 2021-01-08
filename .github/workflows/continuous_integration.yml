@@ -172,9 +172,7 @@ jobs:
       - run: git clone https://github.com/arrow-py/arrow.git
       # Install pyenv
       - run: git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-      - run: echo "~/.pyenv/bin" >> $GITHUB_PATH
-      - run: echo "PYENV_ROOT=~/.pyenv"" >> $GITHUB_ENV
-      - run: pyenv
+      - run: PYENV_ROOT="~/.pyenv"" ~/.pyenv/bin/pyenv install 3.9.1
 
       # Install dependencies
       - name: Install dependencies
