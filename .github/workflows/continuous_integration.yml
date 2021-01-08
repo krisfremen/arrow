@@ -139,7 +139,8 @@ jobs:
 
     steps:
       # Setup WSL
-      - uses: Vampire/setup-wsl@v1
+      - name: Install WSL
+        uses: Vampire/setup-wsl@v1
         with:
           additional-packages:
             git
@@ -169,12 +170,15 @@ jobs:
             libxml2-dev
 
       # Check out latest code
-      - run: git clone https://github.com/arrow-py/arrow.git
+      - name: Clone arrow
+        run: git clone https://github.com/arrow-py/arrow.git
       # Install pyenv
-      - run: git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-      - run: PYENV_ROOT="~/.pyenv" ~/.pyenv/bin/pyenv install ${{ matrix.python }}
+      - name: Setup pyenv
+        run: git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+      - name: pyenv install python version
+        run: PYENV_ROOT="~/.pyenv" ~/.pyenv/bin/pyenv install ${{ matrix.python }}
       # Install dependencies
-      - name: Install dependencies
+      - name: Install dependencies and run tests
         run: |
           PYENV_ROOT="~/.pyenv" ~/.pyenv/bin/pyenv init - &&
           pip3 install -U pip setuptools wheel &&
