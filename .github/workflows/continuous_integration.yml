@@ -172,14 +172,10 @@ jobs:
       - run: git clone https://github.com/arrow-py/arrow.git
       # Install pyenv
       - run: git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-      - run: PYENV_ROOT="~/.pyenv" ~/.pyenv/bin/pyenv install 3.9.1
-
+      - run: PYENV_ROOT="~/.pyenv" ~/.pyenv/bin/pyenv install ${{ matrix.python }}
       # Install dependencies
       - name: Install dependencies
         run: |
-          pip3 install -U pip setuptools wheel
-          pip3 install -U tox
-
-      # Run tests
-      - name: Test with tox
-        run: cd arrow && tox
+          PYENV_ROOT="~/.pyenv" ~/.pyenv/bin/pyenv init - &&
+          pip3 install -U pip setuptools wheel &&
+          pip3 install -U tox && cd arrow && tox
