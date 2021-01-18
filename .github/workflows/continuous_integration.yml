@@ -179,12 +179,10 @@ jobs:
       # Install python version via pyenv
       - name: pyenv install python version
         run: PYENV_ROOT="~/.pyenv" ~/.pyenv/bin/pyenv install ${{ matrix.python }}
-      - name: pyenv global version
-        run: PYENV_ROOT="~/.pyenv" ~/.pyenv/bin/pyenv global ${{ matrix.python }}
 
       # Install dependencies and run tests
       - name: Install dependencies and run tests
         run: |
-          eval "$(~/.pyenv/bin/pyenv init -)" &&
-          pip3 install -U pip setuptools wheel &&
-          pip3 install -U tox && cd arrow && tox
+          PYENV_VERSION="${{ matrix.python }}" eval "$(~/.pyenv/bin/pyenv init -)" &&
+          pip3 install -U pip setuptools wheel tox &&
+          cd arrow && tox
