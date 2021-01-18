@@ -184,6 +184,7 @@ jobs:
       - name: Install dependencies and run tests
         run: |
           eval "$(~/.pyenv/bin/pyenv init -)" &&
+          ~/.pyenv/bin/pyenv local ${{ matrix.python }} &&
           pip3 install -U pip setuptools wheel tox &&
           cd arrow &&
-          PYENV_VERSION="${{ matrix.python }}" tox
+          tox
