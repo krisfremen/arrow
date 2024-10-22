@@ -1080,6 +1080,51 @@ class TestMarathiLocale:
 
 
 @pytest.mark.usefixtures("lang_locale")
+class TestCatalanLocale:
+    def test_singles_ca(self):
+        assert self.locale._format_timeframe("second", 1) == "un segon"
+        assert self.locale._format_timeframe("minute", 1) == "un minut"
+        assert self.locale._format_timeframe("hour", 1) == "una hora"
+        assert self.locale._format_timeframe("day", 1) == "un dia"
+        assert self.locale._format_timeframe("week", 1) == "una setmana"
+        assert self.locale._format_timeframe("month", 1) == "un mes"
+        assert self.locale._format_timeframe("year", 1) == "un any"
+
+    def test_describe_ca(self):
+        assert self.locale.describe("second", only_distance=True) == "un segon"
+        assert self.locale.describe("second", only_distance=False) == "En un segon"
+        assert self.locale.describe("minute", only_distance=True) == "un minut"
+        assert self.locale.describe("minute", only_distance=False) == "En un minut"
+        assert self.locale.describe("hour", only_distance=True) == "una hora"
+        assert self.locale.describe("hour", only_distance=False) == "En una hora"
+        assert self.locale.describe("day", only_distance=True) == "un dia"
+        assert self.locale.describe("day", only_distance=False) == "En un dia"
+        assert self.locale.describe("week", only_distance=True) == "una setmana"
+        assert self.locale.describe("week", only_distance=False) == "En una setmana"
+        assert self.locale.describe("month", only_distance=True) == "un mes"
+        assert self.locale.describe("month", only_distance=False) == "En un mes"
+        assert self.locale.describe("year", only_distance=True) == "un any"
+        assert self.locale.describe("year", only_distance=False) == "En un any"
+
+    def test_relative_ca(self):
+        assert self.locale._format_relative("Ara mateix", "now", 0) == "Ara mateix"
+        assert self.locale._format_relative("1 segon", "seconds", 1) == "En 1 segon"
+        assert self.locale._format_relative("1 minut", "minutes", 1) == "En 1 minut"
+        assert self.locale._format_relative("1 hora", "hours", 1) == "En 1 hora"
+        assert self.locale._format_relative("1 dia", "days", 1) == "En 1 dia"
+        assert self.locale._format_relative("1 setmana", "weeks", 1) == "En 1 setmana"
+        assert self.locale._format_relative("1 mes", "months", 1) == "En 1 mes"
+        assert self.locale._format_relative("1 any", "years", 1) == "En 1 any"
+        assert self.locale._format_relative("1 segon", "seconds", -1) == "Fa 1 segon"
+        assert self.locale._format_relative("1 minut", "minutes", -1) == "Fa 1 minut"
+        assert self.locale._format_relative("1 hora", "hours", -1) == "Fa 1 hora"
+        assert self.locale._format_relative("1 dia", "days", -1) == "Fa 1 dia"
+        assert self.locale._format_relative("1 setmana", "weeks", -1) == "Fa 1 setmana"
+        assert self.locale._format_relative("1 mes", "months", -1) == "Fa 1 mes"
+        assert self.locale._format_relative("1 any", "years", -1) == "Fa 1 any"
+
+
+@pytest.mark.usefixtures("lang_locale")
 class TestFinnishLocale:
     def test_format_timeframe(self):
         # Now
