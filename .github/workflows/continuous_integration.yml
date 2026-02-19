@@ -20,9 +20,13 @@ jobs:
         include:
           - os: ubuntu-latest
             path: ~/.cache/pip
+          - os: ubuntu-24.04-arm
+            path: ~/.cache/pip
           - os: macos-latest
             path: ~/Library/Caches/pip
           - os: windows-latest
+            path: ~\AppData\Local\pip\Cache
+          - os: windows-11-arm
             path: ~\AppData\Local\pip\Cache
     steps:
       - uses: actions/checkout@v6
