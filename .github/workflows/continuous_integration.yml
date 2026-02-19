@@ -28,6 +28,13 @@ jobs:
             path: ~\AppData\Local\pip\Cache
           - os: windows-11-arm
             path: ~\AppData\Local\pip\Cache
+        exclude:
+          - os: windows-11-arm
+            python-version: "3.8"
+          - os: windows-11-arm
+            python-version: "3.9"
+          - os: windows-11-arm
+            python-version: "3.10"
     steps:
       - uses: actions/checkout@v6
       - name: Cache pip
