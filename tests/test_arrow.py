@@ -1942,7 +1942,7 @@ class TestArrowSpan:
 @pytest.mark.usefixtures("time_2013_01_01")
 class TestArrowHumanize:
     def test_granularity(self):
-        assert self.now.humanize(granularity="second") == "just now"
+        assert self.now.humanize(self.now, granularity="second") == "just now"
 
         later1 = self.now.shift(seconds=1)
         assert self.now.humanize(later1, granularity="second") == "just now"
@@ -2038,10 +2038,12 @@ class TestArrowHumanize:
             self.now.humanize(later108, granularity="years")
 
     def test_multiple_granularity(self):
-        assert self.now.humanize(granularity="second") == "just now"
-        assert self.now.humanize(granularity=["second"]) == "just now"
+        assert self.now.humanize(self.now, granularity="second") == "just now"
+        assert self.now.humanize(self.now, granularity=["second"]) == "just now"
         assert (
-            self.now.humanize(granularity=["year", "month", "day", "hour", "second"])
+            self.now.humanize(
+                self.now, granularity=["year", "month", "day", "hour", "second"]
+            )
             == "in 0 years 0 months 0 days 0 hours and 0 seconds"
         )
 
